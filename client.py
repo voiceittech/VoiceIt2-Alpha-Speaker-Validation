@@ -2,12 +2,14 @@ import json
 import random
 import requests
 import string
+import argparse
+import sys
 
 def randomString(stringLength=32):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(stringLength))
 
-def runVerification(enrollmentPaths, verificationPath):
+def runVerification(enrollmentPaths, verificationPath, apiUrl):
 
     #  These will be passed in both the JSON multipart text fields as well as as the keys for the multipart form file keys
     enrollment1FileKey = 'enrollment1'
@@ -46,7 +48,8 @@ def runVerification(enrollmentPaths, verificationPath):
         ]
 
         #  Caught in requests.exceptions.HTTPError as e...
-        response = requests.post('https://alpha-siv3.voiceit.io',
+        # TODO change endpoints
+        response = requests.post(apiUrl,
                                  data=jsonObj,
                                  files=filesObj
                                  )
@@ -71,11 +74,27 @@ def runVerification(enrollmentPaths, verificationPath):
 
 
 if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--target", "-t", help="target: [ siv3 | siv4 ]")
+    args = parser.parse_args()
+
+    if args.target == None:
+        parser.print_help()
+        sys.exit(1)
+
+    #  check value of target
+    if args.target != 'siv3' and args.target != 'siv4':
+        print('target must be of the following: [ siv3 | siv4 ]')
+        sys.exit(1)
+
+
     print('Running user A enrollment files against user A verification file')
-    runVerification(['./files/enrollmentA1.wav', './files/enrollmentA2.wav', './files/enrollmentA3.wav'], './files/verificationA.wav')
+    runVerification(['./files/enrollmentA1.wav', './files/enrollmentA2.wav', './files/enrollmentA3.wav'], './files/verificationA.wav', 'https://alpha-siamese.voiceit.io/' + args.target)
     print('Running user A enrollment files against user B verification file')
-    runVerification(['./files/enrollmentA1.wav', './files/enrollmentA2.wav', './files/enrollmentA3.wav'], './files/verificationB.wav')
+    runVerification(['./files/enrollmentA1.wav', './files/enrollmentA2.wav', './files/enrollmentA3.wav'], './files/verificationB.wav', 'https://alpha-siamese.voiceit.io/' + args.target)
     print('Running user B enrollment files against user B verification file')
-    runVerification(['./files/enrollmentB1.wav', './files/enrollmentB2.wav', './files/enrollmentB3.wav'], './files/verificationB.wav')
+    runVerification(['./files/enrollmentB1.wav', './files/enrollmentB2.wav', './files/enrollmentB3.wav'], './files/verificationB.wav', 'https://alpha-siamese.voiceit.io/' + args.target)
     print('Running user B enrollment files against user A verification file')
-    runVerification(['./files/enrollmentB1.wav', './files/enrollmentB2.wav', './files/enrollmentB3.wav'], './files/verificationA.wav')
+    runVerification(['./files/enrollmentB1.wav', './files/enrollmentB2.wav', './files/enrollmentB3.wav'], './files/verificationA.wav', 'https://alpha-siamese.voiceit.io/' + args.target)
+

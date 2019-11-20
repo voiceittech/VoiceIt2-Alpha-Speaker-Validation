@@ -3,12 +3,14 @@
 
 ## Description
 
-  This repository contains Python 3 based http client [client.py](./client.py) which tests all possible enrollment/verification combinations for two example users and their files:
+This repository contains Python 3 based http client [client.py](./client.py) which tests all possible enrollment/verification combinations for two example users and their files:
 
-  - user A enrollment files against user A verification file
-  - user A enrollment files against user B verification file
-  - user B enrollment files against user B verification file
-  - user B enrollment files against user A verification file
+- user A enrollment files against user A verification file
+- user A enrollment files against user B verification file
+- user B enrollment files against user B verification file
+- user B enrollment files against user A verification file
+
+When running the client, you will need to specify whether you want to target the text dependent engine (`siv3`) or the non-text dependent engine (`siv4`) using the `--target` argument.
 
 ---
 
@@ -50,9 +52,9 @@ Please read the source code for more detailed usage.
 ## Usage
 
 ```
-git clone https://github.com/gilgameshskytrooper/alpha-siv3_client.git
-cd alpha-siv3_client
-python3 client.py
+git clone https://github.com/gilgameshskytrooper/alpha-siamese_client.git
+cd alpha-siamese_client
+python3 client.py --target siv3
 ```
 
 ---
