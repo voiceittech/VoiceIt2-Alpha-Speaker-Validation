@@ -10,7 +10,7 @@ This repository contains Python 3 based http client [client.py](./client.py) whi
 - user B enrollment files against user B verification file
 - user B enrollment files against user A verification file
 
-When running the client, you will need to specify whether you want to target the text dependent engine (`siv3`) or the non-text dependent engine (`siv4`) using the `--target` argument.
+When running the client, you will need to specify whether you want to target the **text dependent engine** (`siv3`) or the **non-text dependent engine** (`siv4`) using the `--target` argument.
 
 ---
 
