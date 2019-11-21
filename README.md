@@ -54,7 +54,7 @@ Please read the source code for more detailed usage.
 ```
 git clone https://github.com/gilgameshskytrooper/alpha-siamese_client.git
 cd alpha-siamese_client
-python3 client.py --target siv3
+python3 client.py --target siv4
 ```
 
 ---
