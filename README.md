@@ -61,4 +61,4 @@ python3 client.py --target siv3
 
 ## Audio Requirements
 
-During this alpha stage, the recording file must be at between 1.5 seconds and 5 seconds long and with a minimum of 1.3 seconds of continuous human speech (no long pauses) in the recording.
+During this alpha stage, the SIV3 recording file must be at between 1.5 seconds and 5 seconds long and with a minimum of 1.3 seconds of continuous human speech with max pause between phonetics of 500 miliseconds (no long pauses) in the recording. the SIV4 recording file must be between 500 miliseconds and 15.0 seconds with a minimum of 400 miliseconds of continuous human speech with max pause between phonetics of 1200ms (no long pauses) in the recording.
