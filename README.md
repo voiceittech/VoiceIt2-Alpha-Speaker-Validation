@@ -1,4 +1,4 @@
-# SIV3 (Alpha) Python Client
+# SIV3/SIV4 (Alpha) Python Client
 > Andrew Lee ([andrew@voiceit.io](mailto:andrew@voiceit.io))
 
 ## Description
@@ -14,7 +14,7 @@ When running the client, you will need to specify whether you want to target the
 
 ---
 
-## SIV3 API Specs
+## SIV3/SIV4 API Specs
 
 ### Request Body (Multipart Form Upload):
 
