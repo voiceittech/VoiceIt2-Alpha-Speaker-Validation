@@ -5,13 +5,16 @@ import string
 import argparse
 import sys
 
+
 def randomString(stringLength=32):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(stringLength))
 
-def runVerification(enrollmentPaths, verificationPath, apiUrl):
 
-    #  These will be passed in both the JSON multipart text fields as well as as the keys for the multipart form file keys
+def runVerification(enrollmentPaths, verificationPath, target):
+
+    #  These will be passed in both the JSON multipart text fields
+    # as well as as the keys for the multipart form file keys
     enrollment1FileKey = 'enrollment1'
     enrollment2FileKey = 'enrollment2'
     enrollment3FileKey = 'enrollment3'
@@ -41,15 +44,30 @@ def runVerification(enrollmentPaths, verificationPath, apiUrl):
 
         #  (string.replace() used to strip path from filename)
         filesObj = [
-            (enrollment1FileKey, (enrollmentPaths[0].replace('./files/', ''), enrollmentFile1, 'this mime is not used')),
-            (enrollment2FileKey, (enrollmentPaths[1].replace('./files/', ''), enrollmentFile2, 'this mime is not used')),
-            (enrollment3FileKey, (enrollmentPaths[2].replace('./files/', ''), enrollmentFile3, 'this mime is not used')),
-            (verificationFileKey, (verificationPath.replace('./files/', ''), verificationFile, 'this mime is not used')),
+
+            (enrollment1FileKey,
+             (enrollmentPaths[0].replace('./files/' + target + '/', ''),
+              enrollmentFile1,
+              'this mime is not used')),
+
+            (enrollment2FileKey,
+             (enrollmentPaths[1].replace('./files/' + target + '/', ''),
+              enrollmentFile2,
+              'this mime is not used')),
+
+            (enrollment3FileKey,
+             (enrollmentPaths[2].replace('./files/' + target + '/', ''),
+              enrollmentFile3,
+              'this mime is not used')),
+
+            (verificationFileKey,
+             (verificationPath.replace('./files/' + target + '/', ''),
+              verificationFile,
+              'this mime is not used')),
         ]
 
         #  Caught in requests.exceptions.HTTPError as e...
-        # TODO change endpoints
-        response = requests.post(apiUrl,
+        response = requests.post('https://alpha-siamese.voiceit.io/' + target,
                                  data=jsonObj,
                                  files=filesObj
                                  )
@@ -79,7 +97,7 @@ if __name__ == '__main__':
     parser.add_argument("--target", "-t", help="target: [ siv3 | siv4 ]")
     args = parser.parse_args()
 
-    if args.target == None:
+    if args.target is None:
         parser.print_help()
         sys.exit(1)
 
@@ -88,13 +106,34 @@ if __name__ == '__main__':
         print('target must be of the following: [ siv3 | siv4 ]')
         sys.exit(1)
 
-
     print('Running user A enrollment files against user A verification file')
-    runVerification(['./files/enrollmentA1.wav', './files/enrollmentA2.wav', './files/enrollmentA3.wav'], './files/verificationA.wav', 'https://alpha-siamese.voiceit.io/' + args.target)
-    print('Running user A enrollment files against user B verification file')
-    runVerification(['./files/enrollmentA1.wav', './files/enrollmentA2.wav', './files/enrollmentA3.wav'], './files/verificationB.wav', 'https://alpha-siamese.voiceit.io/' + args.target)
-    print('Running user B enrollment files against user B verification file')
-    runVerification(['./files/enrollmentB1.wav', './files/enrollmentB2.wav', './files/enrollmentB3.wav'], './files/verificationB.wav', 'https://alpha-siamese.voiceit.io/' + args.target)
-    print('Running user B enrollment files against user A verification file')
-    runVerification(['./files/enrollmentB1.wav', './files/enrollmentB2.wav', './files/enrollmentB3.wav'], './files/verificationA.wav', 'https://alpha-siamese.voiceit.io/' + args.target)
+    runVerification(
+        ['./files/' + args.target + '/enrollmentA1.wav',
+         './files/' + args.target + '/enrollmentA2.wav',
+         './files/' + args.target + '/enrollmentA3.wav'],
+        './files/' + args.target + '/verificationA.wav',
+        args.target)
 
+    print('Running user A enrollment files against user B verification file')
+    runVerification(
+        ['./files/' + args.target + '/enrollmentA1.wav',
+         './files/' + args.target + '/enrollmentA2.wav',
+         './files/' + args.target + '/enrollmentA3.wav'],
+        './files/' + args.target + '/verificationB.wav',
+        args.target)
+
+    print('Running user B enrollment files against user B verification file')
+    runVerification(
+        ['./files/' + args.target + '/enrollmentB1.wav',
+         './files/' + args.target + '/enrollmentB2.wav',
+         './files/' + args.target + '/enrollmentB3.wav'],
+        './files/' + args.target + '/verificationB.wav',
+        args.target)
+
+    print('Running user B enrollment files against user A verification file')
+    runVerification(
+        ['./files/' + args.target + '/enrollmentB1.wav',
+         './files/' + args.target + '/enrollmentB2.wav',
+         './files/' + args.target + '/enrollmentB3.wav'],
+        './files/' + args.target + '/verificationA.wav',
+        args.target)
