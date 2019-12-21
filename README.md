@@ -1,16 +1,25 @@
-# SIV3/SIV4 (Alpha) Python Client
+# SIV3/SIV4 (Alpha) Client Examples
 > Andrew Lee ([andrew@voiceit.io](mailto:andrew@voiceit.io))
 
 ## Description
 
-This repository contains Python 3 based http client [client.py](./client.py) which tests all possible enrollment/verification combinations for two example users and their files:
+This repository contains HTTP clients implemented in various languages which tests all possible enrollment/verification combinations for two example users and their files:
 
 - user A enrollment files against user A verification file
 - user A enrollment files against user B verification file
 - user B enrollment files against user B verification file
 - user B enrollment files against user A verification file
 
-When running the client, you will need to specify whether you want to target the **text dependent engine** (`siv3`) or the **non-text dependent engine** (`siv4`) using the `--target` argument.
+When running the client, you will need to specify whether you want to target the **text dependent engine** (`siv3`) or the **non-text dependent engine** (`siv4`) using the an argument argument.
+
+---
+
+## Examples
+
+| Language | Directory |
+| --- | --- |
+| Python | [`examples/python`](examples/python) |
+| Node JS | [`examples/node`](examples/node) |
 
 ---
 
@@ -46,16 +55,6 @@ When running the client, you will need to specify whether you want to target the
 | uniqueId | `string` | Matches `uniqueId` from request |
 
 Please read the source code for more detailed usage.
-
----
-
-## Usage
-
-```
-git clone https://github.com/gilgameshskytrooper/alpha-siamese_client.git
-cd alpha-siamese_client
-python3 client.py --target siv4
-```
 
 ---
 

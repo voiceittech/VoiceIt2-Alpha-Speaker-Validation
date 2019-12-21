@@ -1,0 +1,15 @@
+{
+  "name": "node_example",
+  "version": "1.0.0",
+  "description": "A Node Client to the Siamese Server (alpha)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Lee",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "form-data": "^3.0.0"
+  }
+}

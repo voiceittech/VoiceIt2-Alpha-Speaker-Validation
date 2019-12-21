@@ -46,22 +46,22 @@ def runVerification(enrollmentPaths, verificationPath, target):
         filesObj = [
 
             (enrollment1FileKey,
-             (enrollmentPaths[0].replace('./files/' + target + '/', ''),
+             (enrollmentPaths[0].replace('../../files/' + target + '/', ''),
               enrollmentFile1,
               'this mime is not used')),
 
             (enrollment2FileKey,
-             (enrollmentPaths[1].replace('./files/' + target + '/', ''),
+             (enrollmentPaths[1].replace('../../files/' + target + '/', ''),
               enrollmentFile2,
               'this mime is not used')),
 
             (enrollment3FileKey,
-             (enrollmentPaths[2].replace('./files/' + target + '/', ''),
+             (enrollmentPaths[2].replace('../../files/' + target + '/', ''),
               enrollmentFile3,
               'this mime is not used')),
 
             (verificationFileKey,
-             (verificationPath.replace('./files/' + target + '/', ''),
+             (verificationPath.replace('../../files/' + target + '/', ''),
               verificationFile,
               'this mime is not used')),
         ]
@@ -108,32 +108,32 @@ if __name__ == '__main__':
 
     print('Running user A enrollment files against user A verification file')
     runVerification(
-        ['./files/' + args.target + '/enrollmentA1.wav',
-         './files/' + args.target + '/enrollmentA2.wav',
-         './files/' + args.target + '/enrollmentA3.wav'],
-        './files/' + args.target + '/verificationA.wav',
+        ['../../files/' + args.target + '/enrollmentA1.wav',
+         '../../files/' + args.target + '/enrollmentA2.wav',
+         '../../files/' + args.target + '/enrollmentA3.wav'],
+        '../../files/' + args.target + '/verificationA.wav',
         args.target)
 
     print('Running user A enrollment files against user B verification file')
     runVerification(
-        ['./files/' + args.target + '/enrollmentA1.wav',
-         './files/' + args.target + '/enrollmentA2.wav',
-         './files/' + args.target + '/enrollmentA3.wav'],
-        './files/' + args.target + '/verificationB.wav',
+        ['../../files/' + args.target + '/enrollmentA1.wav',
+         '../../files/' + args.target + '/enrollmentA2.wav',
+         '../../files/' + args.target + '/enrollmentA3.wav'],
+        '../../files/' + args.target + '/verificationB.wav',
         args.target)
 
     print('Running user B enrollment files against user B verification file')
     runVerification(
-        ['./files/' + args.target + '/enrollmentB1.wav',
-         './files/' + args.target + '/enrollmentB2.wav',
-         './files/' + args.target + '/enrollmentB3.wav'],
-        './files/' + args.target + '/verificationB.wav',
+        ['../../files/' + args.target + '/enrollmentB1.wav',
+         '../../files/' + args.target + '/enrollmentB2.wav',
+         '../../files/' + args.target + '/enrollmentB3.wav'],
+        '../../files/' + args.target + '/verificationB.wav',
         args.target)
 
     print('Running user B enrollment files against user A verification file')
     runVerification(
-        ['./files/' + args.target + '/enrollmentB1.wav',
-         './files/' + args.target + '/enrollmentB2.wav',
-         './files/' + args.target + '/enrollmentB3.wav'],
-        './files/' + args.target + '/verificationA.wav',
+        ['../../files/' + args.target + '/enrollmentB1.wav',
+         '../../files/' + args.target + '/enrollmentB2.wav',
+         '../../files/' + args.target + '/enrollmentB3.wav'],
+        '../../files/' + args.target + '/verificationA.wav',
         args.target)
