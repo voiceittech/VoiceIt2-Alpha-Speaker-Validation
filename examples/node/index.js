@@ -15,7 +15,7 @@ function getUniqueId() {
 }
 
 
-function runVerification(target, jsonObj, enrollmentPathsArray, verificationPath, callback) {
+function runVerification(apiKey, apiToken, target, jsonObj, enrollmentPathsArray, verificationPath, callback) {
 
   const form = new FormData();
   form.append('json', JSON.stringify(jsonObj));
@@ -31,6 +31,10 @@ function runVerification(target, jsonObj, enrollmentPathsArray, verificationPath
   });
 
   axios.post(`https://alpha-siamese.voiceit.io/${target}`, form, {
+    auth: {
+      username: apiKey,
+      password: apiToken
+    },
     headers: form.getHeaders(),
   }).then((httpResponse) => {
     callback(httpResponse.data);
@@ -39,8 +43,6 @@ function runVerification(target, jsonObj, enrollmentPathsArray, verificationPath
   });
 
 }
-
-
 
 
 const jsonObj = {
@@ -54,13 +56,16 @@ const jsonObj = {
 };
 
 
-if (process.argv.length !== 3) {
-  console.log('Please pass the target (either "siv3" or "siv4") after the command "node index.js"\n');
+if (process.argv.length !== 5) {
+  console.log('Please pass the apiKey (key_00000000000000000000000000000000), apiToken (tok_00000000000000000000000000000000), and target (either "siv3" or "siv4") after the command "node index.js"\n');
   console.log('Usage: node index.js [siv3|siv4]');
   process.exit()
 }
 
-const target = process.argv[2];
+const apiKey = process.argv[2];
+const apiToken = process.argv[3];
+
+const target = process.argv[4];
 
 if (target !== 'siv3' && target !== 'siv4') {
   console.log('The target argument must be either "siv3" or "siv4"\n');
@@ -71,7 +76,7 @@ if (target !== 'siv3' && target !== 'siv4') {
 let enrollmentPathsArray = ['../../files/' + target + '/enrollmentA1.wav', '../../files/' + target + '/enrollmentA2.wav', '../../files/' + target + '/enrollmentA3.wav'];
 let verificationPath = '../../files/' + target + '/verificationA.wav';
 jsonObj.uniqueId = getUniqueId();
-runVerification(target, jsonObj, enrollmentPathsArray, verificationPath, (jsonResponse) => {
+runVerification(apiKey, apiToken, target, jsonObj, enrollmentPathsArray, verificationPath, (jsonResponse) => {
   console.log('Running user A enrollment files against user A verification file')
   console.log(jsonResponse);
   console.log();
@@ -80,7 +85,7 @@ runVerification(target, jsonObj, enrollmentPathsArray, verificationPath, (jsonRe
 enrollmentPathsArray = ['../../files/' + target + '/enrollmentA1.wav', '../../files/' + target + '/enrollmentA2.wav', '../../files/' + target + '/enrollmentA3.wav'];
 verificationPath = '../../files/' + target + '/verificationB.wav';
 jsonObj.uniqueId = getUniqueId();
-runVerification(target, jsonObj, enrollmentPathsArray, verificationPath, (jsonResponse) => {
+runVerification(apiKey, apiToken, target, jsonObj, enrollmentPathsArray, verificationPath, (jsonResponse) => {
   console.log('Running user A enrollment files against user B verification file')
   console.log(jsonResponse);
   console.log();
@@ -89,7 +94,7 @@ runVerification(target, jsonObj, enrollmentPathsArray, verificationPath, (jsonRe
 enrollmentPathsArray = ['../../files/' + target + '/enrollmentB1.wav', '../../files/' + target + '/enrollmentB2.wav', '../../files/' + target + '/enrollmentB3.wav'];
 verificationPath = '../../files/' + target + '/verificationB.wav';
 jsonObj.uniqueId = getUniqueId();
-runVerification(target, jsonObj, enrollmentPathsArray, verificationPath, (jsonResponse) => {
+runVerification(apiKey, apiToken, target, jsonObj, enrollmentPathsArray, verificationPath, (jsonResponse) => {
   console.log('Running user B enrollment files against user B verification file')
   console.log(jsonResponse);
   console.log();
@@ -98,7 +103,7 @@ runVerification(target, jsonObj, enrollmentPathsArray, verificationPath, (jsonRe
 enrollmentPathsArray = ['../../files/' + target + '/enrollmentB1.wav', '../../files/' + target + '/enrollmentB2.wav', '../../files/' + target + '/enrollmentB3.wav'];
 verificationPath = '../../files/' + target + '/verificationA.wav';
 jsonObj.uniqueId = getUniqueId();
-runVerification(target, jsonObj, enrollmentPathsArray, verificationPath, (jsonResponse) => {
+runVerification(apiKey, apiToken, target, jsonObj, enrollmentPathsArray, verificationPath, (jsonResponse) => {
   console.log('Running user B enrollment files against user A verification file')
   console.log(jsonResponse);
   console.log();

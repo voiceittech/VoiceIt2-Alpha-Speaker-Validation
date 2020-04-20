@@ -11,7 +11,7 @@ def randomString(stringLength=32):
     return ''.join(random.choice(letters) for i in range(stringLength))
 
 
-def runVerification(enrollmentPaths, verificationPath, target):
+def runVerification(enrollmentPaths, verificationPath, apiKey, apiToken, target):
 
     #  These will be passed in both the JSON multipart text fields
     # as well as as the keys for the multipart form file keys
@@ -68,6 +68,7 @@ def runVerification(enrollmentPaths, verificationPath, target):
 
         #  Caught in requests.exceptions.HTTPError as e...
         response = requests.post('https://alpha-siamese.voiceit.io/' + target,
+                                 auth=(apiKey, apiToken),
                                  data=jsonObj,
                                  files=filesObj
                                  )
@@ -89,15 +90,27 @@ def runVerification(enrollmentPaths, verificationPath, target):
         enrollmentFile3.close()
         verificationFile.close()
         print('exception: ', e.read())
+    except json.JSONDecodeError as e:
+        print('response: ', response)
 
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--target", "-t", help="target: [ siv3 | siv4 ]")
+    parser.add_argument("--apiKey", "-k", help="VoiceIt API 2 Key")
+    parser.add_argument("--apiToken", "-n", help="VoiceIt API 2 Token")
     args = parser.parse_args()
 
     if args.target is None:
+        parser.print_help()
+        sys.exit(1)
+
+    if args.apiKey is None:
+        parser.print_help()
+        sys.exit(1)
+
+    if args.apiToken is None:
         parser.print_help()
         sys.exit(1)
 
@@ -109,31 +122,39 @@ if __name__ == '__main__':
     print('Running user A enrollment files against user A verification file')
     runVerification(
         ['../../files/' + args.target + '/enrollmentA1.wav',
-         '../../files/' + args.target + '/enrollmentA2.wav',
-         '../../files/' + args.target + '/enrollmentA3.wav'],
+            '../../files/' + args.target + '/enrollmentA2.wav',
+            '../../files/' + args.target + '/enrollmentA3.wav'],
         '../../files/' + args.target + '/verificationA.wav',
+        args.apiKey,
+        args.apiToken,
         args.target)
 
     print('Running user A enrollment files against user B verification file')
     runVerification(
         ['../../files/' + args.target + '/enrollmentA1.wav',
-         '../../files/' + args.target + '/enrollmentA2.wav',
-         '../../files/' + args.target + '/enrollmentA3.wav'],
+            '../../files/' + args.target + '/enrollmentA2.wav',
+            '../../files/' + args.target + '/enrollmentA3.wav'],
         '../../files/' + args.target + '/verificationB.wav',
+        args.apiKey,
+        args.apiToken,
         args.target)
 
     print('Running user B enrollment files against user B verification file')
     runVerification(
         ['../../files/' + args.target + '/enrollmentB1.wav',
-         '../../files/' + args.target + '/enrollmentB2.wav',
-         '../../files/' + args.target + '/enrollmentB3.wav'],
+            '../../files/' + args.target + '/enrollmentB2.wav',
+            '../../files/' + args.target + '/enrollmentB3.wav'],
         '../../files/' + args.target + '/verificationB.wav',
+        args.apiKey,
+        args.apiToken,
         args.target)
 
     print('Running user B enrollment files against user A verification file')
     runVerification(
         ['../../files/' + args.target + '/enrollmentB1.wav',
-         '../../files/' + args.target + '/enrollmentB2.wav',
-         '../../files/' + args.target + '/enrollmentB3.wav'],
+            '../../files/' + args.target + '/enrollmentB2.wav',
+            '../../files/' + args.target + '/enrollmentB3.wav'],
         '../../files/' + args.target + '/verificationA.wav',
+        args.apiKey,
+        args.apiToken,
         args.target)

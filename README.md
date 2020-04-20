@@ -25,6 +25,12 @@ When running the client, you will need to specify whether you want to target the
 
 ## SIV3/SIV4 API Specs
 
+### Authentication
+
+You will need to sign up for a VoiceIt account at [https://voiceit.io/signup](https://voiceit.io/signup), and utilize your API Key and API Token passed as Basic Auth credentials as part of the request.
+
+An API Key will look like `key_00000000000000000000000000000000` and API Token looks like `tok_00000000000000000000000000000000`.
+
 ### Request Body (Multipart Form Upload):
 
 | Key | Field Type | Description |
