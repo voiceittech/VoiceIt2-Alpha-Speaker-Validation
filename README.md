@@ -56,7 +56,7 @@ An API Key will look like `key_00000000000000000000000000000000` and API Token l
 | -- | -- | -- |
 | confidence | `float` | Confidence that verification file is from the same user as enrollment files |
 | message | `string` | Used to convey whether or not the request succeeded or why it failed |
-| responseCode | `integer` | |
+| statusCode | `integer` | |
 | threshold | `float` | |
 | uniqueId | `string` | Matches `uniqueId` from request |
 
@@ -67,3 +67,6 @@ Please read the source code for more detailed usage.
 ## Audio Requirements
 
 During this alpha stage, the SIV3 recording file must be at between 1.5 seconds and 5 seconds long and with a minimum of 1.3 seconds of continuous human speech with max pause between phonetics of 500 miliseconds (no long pauses) in the recording. the SIV4 recording file must be between 500 miliseconds and 15.0 seconds with a minimum of 400 miliseconds of continuous human speech with max pause between phonetics of 1200ms (no long pauses) in the recording.
+
+## Using Status Code
+If the status code was not 200 in the JSON response, the request failed for some reason. Please refer to the message to figure out why.
