@@ -1,4 +1,4 @@
-# SIV3/SIV4 (Alpha) Client Examples
+# VoiceIt2 Speaker Validation (Alpha) Client Examples
 > Andrew Lee ([andrew@voiceit.io](mailto:andrew@voiceit.io))
 
 ## Description
