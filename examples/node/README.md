@@ -17,8 +17,8 @@ When running the client, you will need to specify whether you want to target the
 ## Usage
 
 ```
-git clone https://github.com/gilgameshskytrooper/alpha-siamese_client.git
-cd alpha-siamese_client/examples/node
+git clone https://github.com/voiceittech/VoiceIt2-Alpha-Speaker-Validation.git
+cd VoiceIt2-Alpha-Speaker-Validation/examples/node
 npm i
 node index.js siv4
 ```
